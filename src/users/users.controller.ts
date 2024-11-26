@@ -1,6 +1,6 @@
-import { Controller, Get, Post, Body, Param } from '@nestjs/common';
+import { Controller, Get, Post, Put, Delete, Body, Param } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { User } from './user.schema'; // Asegúrate de que esta importación es correcta
+import { User } from './user.schema';
 
 @Controller('users')
 export class UsersController {
@@ -21,5 +21,13 @@ export class UsersController {
     return this.usersService.findOne(id);
   }
 
-  // Otros métodos para actualizar y eliminar usuarios pueden ir aquí
+  @Put(':id') // Asegúrate de que este método esté aquí
+  update(@Param('id') id: string, @Body() user: User) {
+    return this.usersService.update(id, user);
+  }
+
+  @Delete(':id') // Asegúrate de que este método esté aquí
+  remove(@Param('id') id: string) {
+    return this.usersService.remove(id);
+  }
 }
