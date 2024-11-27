@@ -6,6 +6,7 @@ import { ValidationPipe } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { WinstonModule } from 'nest-winston';
 import { loggerConfig } from './users/core/logger.config'; // Importa la configuración del logger
+import { IoAdapter } from '@nestjs/platform-socket.io';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
@@ -31,6 +32,13 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api-docs', app, document); // Asegúrate de que esta línea esté presente
 
+  // Configurar Socket.IO
+  app.useWebSocketAdapter(new IoAdapter(app));
+
+  // Iniciar la aplicación y manejar la conexión a MongoDB
   await app.listen(process.env.PORT ?? 3000);
+  
+  console.log(`Aplicación corriendo en: http://localhost:${process.env.PORT ?? 3000}`);
 }
+
 bootstrap();
