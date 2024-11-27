@@ -1,13 +1,14 @@
 import { Model } from 'mongoose';
 import { User, UserDocument } from './user.schema';
-import { UserInterface } from './user.interface';
+import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 export declare class UsersService {
     private userModel;
     constructor(userModel: Model<UserDocument>);
-    create(user: Partial<User>): Promise<User>;
+    create(createUserDto: CreateUserDto): Promise<User>;
     findAll(): Promise<User[]>;
     findOne(id: string): Promise<User>;
-    findOneByEmail(email: string): Promise<UserInterface | null>;
-    update(id: string, user: Partial<User>): Promise<User>;
+    update(id: string, updateUserDto: UpdateUserDto): Promise<User>;
     remove(id: string): Promise<User>;
+    findOneByEmail(email: string): Promise<User | null>;
 }

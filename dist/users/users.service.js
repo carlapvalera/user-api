@@ -17,35 +17,42 @@ const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
 const user_schema_1 = require("./user.schema");
+const bcrypt = require("bcrypt");
 let UsersService = class UsersService {
     constructor(userModel) {
         this.userModel = userModel;
     }
-    async create(user) {
-        const newUser = new this.userModel(user);
+    async create(createUserDto) {
+        const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
+        const newUser = new this.userModel({ ...createUserDto, password: hashedPassword });
         return newUser.save();
     }
     async findAll() {
         return this.userModel.find().exec();
     }
     async findOne(id) {
-        return this.userModel.findById(id).exec();
+        const user = await this.userModel.findById(id).exec();
+        if (!user) {
+            throw new common_1.NotFoundException(`User with ID ${id} not found`);
+        }
+        return user;
     }
-    async findOneByEmail(email) {
-        const user = await this.userModel.findOne({ email }).exec();
-        if (!user)
-            return null;
-        return {
-            username: user.username,
-            email: user.email,
-            password: user.password,
-        };
-    }
-    async update(id, user) {
-        return this.userModel.findByIdAndUpdate(id, user, { new: true }).exec();
+    async update(id, updateUserDto) {
+        const user = await this.userModel.findByIdAndUpdate(id, updateUserDto, { new: true }).exec();
+        if (!user) {
+            throw new common_1.NotFoundException(`User with ID ${id} not found`);
+        }
+        return user;
     }
     async remove(id) {
-        return this.userModel.findByIdAndDelete(id).exec();
+        const user = await this.userModel.findByIdAndDelete(id).exec();
+        if (!user) {
+            throw new common_1.NotFoundException(`User with ID ${id} not found`);
+        }
+        return user;
+    }
+    async findOneByEmail(email) {
+        return this.userModel.findOne({ email }).exec();
     }
 };
 exports.UsersService = UsersService;

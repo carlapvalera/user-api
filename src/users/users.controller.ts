@@ -1,33 +1,37 @@
-import { Controller, Get, Post, Put, Delete, Body, Param } from '@nestjs/common';
+// src/users/users.controller.ts
+
+import { Controller, Post, Body, Get, Param, Put, Delete } from '@nestjs/common';
 import { UsersService } from './users.service';
+import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './user.schema';
 
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @Post()
-  create(@Body() user: User) {
-    return this.usersService.create(user);
+  @Post('register')
+  async register(@Body() createUserDto: CreateUserDto) {
+    return this.usersService.create(createUserDto);
   }
 
   @Get()
-  findAll() {
+  async findAll() {
     return this.usersService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  async findOne(@Param('id') id: string) {
     return this.usersService.findOne(id);
   }
 
-  @Put(':id') // Asegúrate de que este método esté aquí
-  update(@Param('id') id: string, @Body() user: User) {
-    return this.usersService.update(id, user);
+  @Put(':id')
+  async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
+    return this.usersService.update(id, updateUserDto);
   }
 
-  @Delete(':id') // Asegúrate de que este método esté aquí
-  remove(@Param('id') id: string) {
+  @Delete(':id')
+  async remove(@Param('id') id: string) {
     return this.usersService.remove(id);
   }
 }
