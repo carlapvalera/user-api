@@ -100,3 +100,24 @@
 {"context":"RouterExplorer","level":"info","message":"Mapped {/users/:id, PUT} route","timestamp":"2024-11-27T21:35:31.515Z"}
 {"context":"RouterExplorer","level":"info","message":"Mapped {/users/:id, DELETE} route","timestamp":"2024-11-27T21:35:31.517Z"}
 {"context":"NestApplication","level":"info","message":"Nest application successfully started","timestamp":"2024-11-27T21:35:31.523Z"}
+{"context":"NestFactory","level":"info","message":"Starting Nest application...","timestamp":"2024-11-27T22:42:18.359Z"}
+{"context":"InstanceLoader","level":"info","message":"MongooseModule dependencies initialized","timestamp":"2024-11-27T22:42:18.424Z"}
+{"context":"InstanceLoader","level":"info","message":"CoreModule dependencies initialized","timestamp":"2024-11-27T22:42:18.425Z"}
+{"context":"InstanceLoader","level":"info","message":"AppModule dependencies initialized","timestamp":"2024-11-27T22:42:18.426Z"}
+{"context":"InstanceLoader","level":"info","message":"MongooseCoreModule dependencies initialized","timestamp":"2024-11-27T22:42:18.480Z"}
+{"context":"InstanceLoader","level":"info","message":"MongooseModule dependencies initialized","timestamp":"2024-11-27T22:42:18.490Z"}
+{"context":"InstanceLoader","level":"info","message":"UsersModule dependencies initialized","timestamp":"2024-11-27T22:42:18.492Z"}
+{"context":"WebSocketsController","level":"info","message":"UsersGateway subscribed to the \"userAction\" message","timestamp":"2024-11-27T22:42:18.635Z"}
+{"context":"RoutesResolver","level":"info","message":"AppController {/}:","timestamp":"2024-11-27T22:42:18.638Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/, GET} route","timestamp":"2024-11-27T22:42:18.641Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/test-connection, GET} route","timestamp":"2024-11-27T22:42:18.643Z"}
+{"context":"RoutesResolver","level":"info","message":"UseController {/use}:","timestamp":"2024-11-27T22:42:18.644Z"}
+{"context":"RoutesResolver","level":"info","message":"UsersController {/users}:","timestamp":"2024-11-27T22:42:18.645Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/users/register, POST} route","timestamp":"2024-11-27T22:42:18.647Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/users/login, POST} route","timestamp":"2024-11-27T22:42:18.649Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/users, GET} route","timestamp":"2024-11-27T22:42:18.651Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/users/:id, GET} route","timestamp":"2024-11-27T22:42:18.652Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/users/:id, PUT} route","timestamp":"2024-11-27T22:42:18.653Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/users/:id, DELETE} route","timestamp":"2024-11-27T22:42:18.659Z"}
+{"context":"NestApplication","level":"info","message":"Nest application successfully started","timestamp":"2024-11-27T22:42:18.663Z"}
+{"level":"info","message":"El usuario camdvmdrlos ha sido registrado.","timestamp":"2024-11-27T22:42:42.757Z"}

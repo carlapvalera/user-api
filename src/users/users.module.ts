@@ -14,5 +14,6 @@ import { CoreModule } from './core/core.module'; // Importar el módulo del logg
   ],
   controllers: [UsersController],
   providers: [UsersService, UsersGateway],
+  exports: [UsersService], // Asegúrate de exportar el UsersService
 })
 export class UsersModule {}

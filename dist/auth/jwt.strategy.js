@@ -11,20 +11,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.JwtStrategy = void 0;
 const common_1 = require("@nestjs/common");
-const passport_jwt_1 = require("passport-jwt");
 const passport_1 = require("@nestjs/passport");
+const passport_jwt_1 = require("passport-jwt");
 const users_service_1 = require("../users/users.service");
 let JwtStrategy = class JwtStrategy extends (0, passport_1.PassportStrategy)(passport_jwt_1.Strategy) {
     constructor(usersService) {
         super({
-            jwtFromRequest: passport_jwt_1.ExtractJwt.fromAuthHeaderAsBearerToken(),
+            jwtFromRequest: passport_jwt_1.ExtractJwt.fromExtractors([(req) => req?.cookies?.jwt]),
             ignoreExpiration: false,
-            secretOrKey: 'claveSecreta',
+            secretOrKey: 'your_secret_key',
         });
         this.usersService = usersService;
     }
     async validate(payload) {
-        return this.usersService.findOneByEmail(payload.email);
+        return this.usersService.findOne(payload.sub);
     }
 };
 exports.JwtStrategy = JwtStrategy;
