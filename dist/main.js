@@ -7,10 +7,12 @@ const swagger_1 = require("@nestjs/swagger");
 const nest_winston_1 = require("nest-winston");
 const logger_config_1 = require("./users/core/logger.config");
 const platform_socket_io_1 = require("@nestjs/platform-socket.io");
+const cookieParser = require("cookie-parser");
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule, {
         logger: nest_winston_1.WinstonModule.createLogger(logger_config_1.loggerConfig),
     });
+    app.use(cookieParser());
     app.useGlobalPipes(new common_1.ValidationPipe({
         transform: true,
         whitelist: true,

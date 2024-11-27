@@ -7,12 +7,14 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { WinstonModule } from 'nest-winston';
 import { loggerConfig } from './users/core/logger.config'; // Importa la configuración del logger
 import { IoAdapter } from '@nestjs/platform-socket.io';
+import * as cookieParser from 'cookie-parser';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     logger: WinstonModule.createLogger(loggerConfig), // Usa la configuración del logger aquí
   });
 
+  app.use(cookieParser()); // Agrega este middleware para manejar cookies
   // Configura el ValidationPipe globalmente
   app.useGlobalPipes(new ValidationPipe({
     transform: true,

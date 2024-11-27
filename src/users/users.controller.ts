@@ -1,10 +1,11 @@
 // src/users/users.controller.ts
 
-import { Controller, Post, Body, Get, Param, Put, Delete, NotFoundException  } from '@nestjs/common';
+import { Controller, Post, Body, Get, Param, Put, Delete, NotFoundException , UseGuards } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './user.schema';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 
@@ -34,6 +35,7 @@ export class UsersController {
     return user; // Devuelve el usuario (sin la contraseña) o un token JWT si lo implementas más adelante
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get()
   @ApiOperation({ summary: 'Obtener todos los usuarios' })
   @ApiResponse({ status: 200, description: 'Lista de usuarios.' })
@@ -41,6 +43,7 @@ export class UsersController {
     return this.usersService.findAll();
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get(':id')
   @ApiOperation({ summary: 'Obtener un usuario por ID' })
   @ApiResponse({ status: 200, description: 'Usuario encontrado.' })
@@ -49,6 +52,7 @@ export class UsersController {
     return this.usersService.findOne(id);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Put(':id')
   @ApiOperation({ summary: 'Actualizar un usuario' })
   @ApiResponse({ status: 200, description: 'Usuario actualizado.' })
@@ -56,6 +60,7 @@ export class UsersController {
     return this.usersService.update(id, updateUserDto);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
   @ApiOperation({ summary: 'Eliminar un usuario' })
   @ApiResponse({ status: 200, description: 'Usuario eliminado.' })
