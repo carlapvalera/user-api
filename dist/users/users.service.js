@@ -54,6 +54,14 @@ let UsersService = class UsersService {
     async findOneByEmail(email) {
         return this.userModel.findOne({ email }).exec();
     }
+    async validateUser(email, password) {
+        const user = await this.userModel.findOne({ email }).lean().exec();
+        if (user && await bcrypt.compare(password, user.password)) {
+            const { password, ...result } = user;
+            return result;
+        }
+        return null;
+    }
 };
 exports.UsersService = UsersService;
 exports.UsersService = UsersService = __decorate([

@@ -6,7 +6,6 @@ import { Model } from 'mongoose';
 import { User, UserDocument } from './user.schema';
 import * as bcrypt from 'bcrypt';
 import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
 export class UsersService {
@@ -30,7 +29,7 @@ export class UsersService {
     return user;
   }
 
-  async update(id: string, updateUserDto: UpdateUserDto): Promise<User> {
+  async update(id: string, updateUserDto: Partial<User>): Promise<User> {
     const user = await this.userModel.findByIdAndUpdate(id, updateUserDto, { new: true }).exec();
     if (!user) {
       throw new NotFoundException(`User with ID ${id} not found`);
@@ -48,5 +47,14 @@ export class UsersService {
 
   async findOneByEmail(email: string): Promise<User | null> {
     return this.userModel.findOne({ email }).exec();
+  }
+
+  async validateUser(email: string, password: string): Promise<any> {
+    const user = await this.userModel.findOne({ email }).lean().exec(); // Usa lean() aquí
+    if (user && await bcrypt.compare(password, user.password)) {
+      const { password, ...result } = user; // No necesitas toObject() si usas lean()
+      return result;
+    }
+    return null; // Devuelve null si las credenciales son incorrectas
   }
 }

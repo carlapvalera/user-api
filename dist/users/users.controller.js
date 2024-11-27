@@ -24,6 +24,13 @@ let UsersController = class UsersController {
     async register(createUserDto) {
         return this.usersService.create(createUserDto);
     }
+    async login(body) {
+        const user = await this.usersService.validateUser(body.email, body.password);
+        if (!user) {
+            throw new common_1.NotFoundException('Invalid credentials');
+        }
+        return user;
+    }
     async findAll() {
         return this.usersService.findAll();
     }
@@ -45,6 +52,13 @@ __decorate([
     __metadata("design:paramtypes", [create_user_dto_1.CreateUserDto]),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "register", null);
+__decorate([
+    (0, common_1.Post)('login'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], UsersController.prototype, "login", null);
 __decorate([
     (0, common_1.Get)(),
     __metadata("design:type", Function),
