@@ -1,24 +1,23 @@
-import { Module } from '@nestjs/common';
-import { AuthService } from './auth.service';
+
 import { AuthController } from './auth.controller';
-import { UsersModule } from '../users/users.module'; // Asegúrate de que la ruta sea correcta
-import { JwtModule } from '@nestjs/jwt';
-import { PassportModule } from '@nestjs/passport';
+import { Module, forwardRef } from '@nestjs/common';
+import { AuthService } from './auth.service';
+import { UsersModule } from '../users/users.module'; // Importa el módulo de usuarios
 import { JwtStrategy } from './jwt.strategy';
+import { PassportModule } from '@nestjs/passport';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [
-    UsersModule,
+    forwardRef(() => UsersModule), // Usa forwardRef aquí
     PassportModule,
     JwtModule.register({
-      secret: 'claveSecreta', // Cambia esto por una clave más segura
-      signOptions: { expiresIn: '1h' }, // El token expirará en 1 hora
+      secret: 'claveSecreta',
+      signOptions: { expiresIn: '1h' },
     }),
   ],
-  providers: [AuthService,JwtStrategy],
+  providers: [AuthService, JwtStrategy],
   controllers: [AuthController],
+  exports: [AuthService],
 })
 export class AuthModule {}
-
-
-

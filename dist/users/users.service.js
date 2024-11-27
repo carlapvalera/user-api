@@ -31,6 +31,16 @@ let UsersService = class UsersService {
     async findOne(id) {
         return this.userModel.findById(id).exec();
     }
+    async findOneByEmail(email) {
+        const user = await this.userModel.findOne({ email }).exec();
+        if (!user)
+            return null;
+        return {
+            username: user.username,
+            email: user.email,
+            password: user.password,
+        };
+    }
     async update(id, user) {
         return this.userModel.findByIdAndUpdate(id, user, { new: true }).exec();
     }
