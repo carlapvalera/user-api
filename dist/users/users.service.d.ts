@@ -1,9 +1,13 @@
 import { Model } from 'mongoose';
 import { User, UserDocument } from './user.schema';
 import { CreateUserDto } from './dto/create-user.dto';
+import { UsersGateway } from './users.gateway';
+import { CustomLoggerService } from './core/logger.service';
 export declare class UsersService {
     private userModel;
-    constructor(userModel: Model<UserDocument>);
+    private readonly logger;
+    private usersGateway;
+    constructor(userModel: Model<UserDocument>, logger: CustomLoggerService, usersGateway: UsersGateway);
     create(createUserDto: CreateUserDto): Promise<User>;
     findAll(): Promise<User[]>;
     findOne(id: string): Promise<User>;

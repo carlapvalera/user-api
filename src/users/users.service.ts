@@ -6,14 +6,18 @@ import { Model } from 'mongoose';
 import { User, UserDocument } from './user.schema';
 import * as bcrypt from 'bcrypt';
 import { CreateUserDto } from './dto/create-user.dto';
+import { UsersGateway } from './users.gateway'; // Importar el gateway
+import { CustomLoggerService } from './core/logger.service'; // Asegúrate de importar tu logger personalizado
 
 @Injectable()
 export class UsersService {
-  constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
+  constructor(@InjectModel(User.name) private userModel: Model<UserDocument>, private readonly logger: CustomLoggerService,private usersGateway: UsersGateway,) {}
 
   async create(createUserDto: CreateUserDto): Promise<User> {
     const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
     const newUser = new this.userModel({ ...createUserDto, password: hashedPassword });
+    this.usersGateway.handleUserAction({ userId: newUser.username, action: 'registró' }); // Emitir mensaje
+    this.logger.log(`El usuario ${newUser.username} ha sido registrado.`); // Log de la operación
     return newUser.save();
   }
 
@@ -34,6 +38,8 @@ export class UsersService {
     if (!user) {
       throw new NotFoundException(`User with ID ${id} not found`);
     }
+    this.usersGateway.handleUserAction({ userId: user.username, action: 'actualizó' }); // Emitir mensaje
+    this.logger.log(`El usuario ${user.username} ha sido actualizado.`); // Log de la operación
     return user;
   }
 
@@ -42,6 +48,8 @@ export class UsersService {
     if (!user) {
       throw new NotFoundException(`User with ID ${id} not found`);
     }
+    this.usersGateway.handleUserAction({ userId: user.username, action: 'eliminó' }); // Emitir mensaje
+    this.logger.log(`El usuario ${user.username} ha sido eliminado.`); // Log de la operación
     return user;
   }
 
