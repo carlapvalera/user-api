@@ -12,3 +12,4 @@ import { CoreModule } from './users/core/core.module'; // Importa el módulo del
   providers: [AppService],
 })
 export class AppModule {}
+  
