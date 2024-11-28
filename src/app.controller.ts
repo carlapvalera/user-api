@@ -12,7 +12,7 @@ export class AppController {
   @ApiOperation({ summary: 'Obtener saludo' }) 
   @ApiResponse({ status: 200, description: 'Saludo exitoso.' }) 
   getHello(): string {
-    return this.appService.getHello()
+    return 'Hello World'
   }
   @Get('test-connection')
   @ApiOperation({ summary: 'Probar conexión a MongoDB' }) 
