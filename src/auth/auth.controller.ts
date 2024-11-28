@@ -1,21 +1,22 @@
-import { Body, Controller, Post, HttpCode, HttpStatus } from '@nestjs/common';
+import { Controller, Post, Body, Res } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { RegisterDto } from './dto/register.dto';
-import { LoginDto } from './dto/login.dto';
+import { Response } from 'express';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+   constructor(private readonly authService: AuthService) {}
 
-  @Post('register')
-  async register(@Body() registerDto: RegisterDto) {
-    return this.authService.register(registerDto);
-  }
-
-  @HttpCode(HttpStatus.OK)
-  @Post('login')
-  async login(@Body() loginDto: LoginDto) {
-    return this.authService.login(loginDto);
-  }
+   @Post('login')
+   async login(@Body() body, @Res() res: Response) {
+       const user = await this.authService.validateUser(body.email, body.password);
+       if (!user) {
+           return res.status(401).send('Invalid credentials');
+       }
+       const token = await this.authService.login(user);
+       
+       // Establecer la cookie con el token JWT
+       res.cookie('jwt', token.access_token, { httpOnly: true });
+       
+       return res.send({ message: 'Login successful' });
+   }
 }
-

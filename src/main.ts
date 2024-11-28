@@ -1,18 +1,19 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
+import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { WinstonModule } from 'nest-winston';
+import { loggerConfig } from './users/core/logger.config'; 
+import { IoAdapter } from '@nestjs/platform-socket.io';
+import * as cookieParser from 'cookie-parser';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    logger: WinstonModule.createLogger(loggerConfig), 
+  });
 
-
-  // Manejo de errores al conectar a MongoDB
-  try {
-    await app.init(); // Inicializa la aplicación
-    console.log('Conexión a MongoDB establecida exitosamente.');
-  } catch (error) {
-    console.error('Error al conectar a MongoDB:', error);
-  }
+  // Agrega este middleware para manejar cookies
+  app.use(cookieParser()); 
 
   // Configura el ValidationPipe globalmente
   app.useGlobalPipes(new ValidationPipe({
@@ -22,9 +23,24 @@ async function bootstrap() {
     stopAtFirstError: true,
   }));
 
+  // Configuración de Swagger
+  const config = new DocumentBuilder()
+    .setTitle('User API')
+    .setDescription('API para gestionar usuarios')
+    .setVersion('1.0')
+    .addTag('users')
+    .build();
 
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api-docs', app, document); 
 
+  // Configurar Socket.IO
+  app.useWebSocketAdapter(new IoAdapter(app));
+
+  // Iniciar la aplicación y manejar la conexión a MongoDB
   await app.listen(process.env.PORT ?? 3000);
+  
+  console.log(`Aplicación corriendo en: http://localhost:${process.env.PORT ?? 3000}`);
 }
-bootstrap();
 
+bootstrap();

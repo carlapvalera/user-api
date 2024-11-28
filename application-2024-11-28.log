@@ -1,0 +1,27 @@
+{"context":"NestFactory","level":"info","message":"Starting Nest application...","timestamp":"2024-11-28T05:00:53.736Z"}
+{"context":"InstanceLoader","level":"info","message":"MongooseModule dependencies initialized","timestamp":"2024-11-28T05:00:53.821Z"}
+{"context":"InstanceLoader","level":"info","message":"CoreModule dependencies initialized","timestamp":"2024-11-28T05:00:53.822Z"}
+{"context":"InstanceLoader","level":"info","message":"JwtModule dependencies initialized","timestamp":"2024-11-28T05:00:53.823Z"}
+{"context":"InstanceLoader","level":"info","message":"AppModule dependencies initialized","timestamp":"2024-11-28T05:00:53.824Z"}
+{"context":"InstanceLoader","level":"info","message":"MongooseCoreModule dependencies initialized","timestamp":"2024-11-28T05:00:53.890Z"}
+{"context":"InstanceLoader","level":"info","message":"MongooseModule dependencies initialized","timestamp":"2024-11-28T05:00:53.905Z"}
+{"context":"InstanceLoader","level":"info","message":"AuthModule dependencies initialized","timestamp":"2024-11-28T05:00:53.910Z"}
+{"context":"InstanceLoader","level":"info","message":"UsersModule dependencies initialized","timestamp":"2024-11-28T05:00:53.915Z"}
+{"context":"WebSocketsController","level":"info","message":"UsersGateway subscribed to the \"userAction\" message","timestamp":"2024-11-28T05:00:54.048Z"}
+{"context":"RoutesResolver","level":"info","message":"AppController {/}:","timestamp":"2024-11-28T05:00:54.051Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/, GET} route","timestamp":"2024-11-28T05:00:54.055Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/test-connection, GET} route","timestamp":"2024-11-28T05:00:54.056Z"}
+{"context":"RoutesResolver","level":"info","message":"UseController {/use}:","timestamp":"2024-11-28T05:00:54.057Z"}
+{"context":"RoutesResolver","level":"info","message":"UsersController {/users}:","timestamp":"2024-11-28T05:00:54.058Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/users/register, POST} route","timestamp":"2024-11-28T05:00:54.061Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/users/login, POST} route","timestamp":"2024-11-28T05:00:54.063Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/users, GET} route","timestamp":"2024-11-28T05:00:54.066Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/users/:id, GET} route","timestamp":"2024-11-28T05:00:54.068Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/users/:id, PUT} route","timestamp":"2024-11-28T05:00:54.074Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/users/:id, DELETE} route","timestamp":"2024-11-28T05:00:54.076Z"}
+{"context":"RoutesResolver","level":"info","message":"AuthController {/auth}:","timestamp":"2024-11-28T05:00:54.078Z"}
+{"context":"RouterExplorer","level":"info","message":"Mapped {/auth/login, POST} route","timestamp":"2024-11-28T05:00:54.081Z"}
+{"context":"NestApplication","level":"info","message":"Nest application successfully started","timestamp":"2024-11-28T05:00:54.088Z"}
+{"context":"ExceptionsHandler","level":"error","message":"Cast to ObjectId failed for value \"register\" (type string) at path \"_id\" for model \"User\"","stack":["CastError: Cast to ObjectId failed for value \"register\" (type string) at path \"_id\" for model \"User\"\n    at SchemaObjectId.cast (C:\\blabla\\pruebatecnicaa\\user-api\\node_modules\\mongoose\\lib\\schema\\objectId.js:250:11)\n    at SchemaType.applySetters (C:\\blabla\\pruebatecnicaa\\user-api\\node_modules\\mongoose\\lib\\schemaType.js:1236:12)\n    at SchemaType.castForQuery (C:\\blabla\\pruebatecnicaa\\user-api\\node_modules\\mongoose\\lib\\schemaType.js:1653:17)\n    at cast (C:\\blabla\\pruebatecnicaa\\user-api\\node_modules\\mongoose\\lib\\cast.js:390:32)\n    at Query.cast (C:\\blabla\\pruebatecnicaa\\user-api\\node_modules\\mongoose\\lib\\query.js:4906:12)\n    at Query._castConditions (C:\\blabla\\pruebatecnicaa\\user-api\\node_modules\\mongoose\\lib\\query.js:2309:10)\n    at model.Query._findOne (C:\\blabla\\pruebatecnicaa\\user-api\\node_modules\\mongoose\\lib\\query.js:2632:8)\n    at model.Query.exec (C:\\blabla\\pruebatecnicaa\\user-api\\node_modules\\mongoose\\lib\\query.js:4458:80)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at UsersService.findOne (C:\\blabla\\pruebatecnicaa\\user-api\\src\\users\\users.service.ts:29:18)"],"timestamp":"2024-11-28T05:02:28.880Z"}
+{"level":"info","message":"El usuario testuser ha sido registrado.","timestamp":"2024-11-28T05:02:38.466Z"}
+{"level":"info","message":"El usuario testuser ha sido registrado.","timestamp":"2024-11-28T05:02:50.430Z"}

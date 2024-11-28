@@ -1,99 +1,147 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# User-API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Una API RESTful construida con NestJS para gestionar usuarios y autenticación mediante JWT.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Tabla de Contenidos
 
-## Description
+- [Características](#características)
+- [Tecnologías Utilizadas](#tecnologías-utilizadas)
+- [Instalación](#instalación)
+- [Uso](#uso)
+- [Endpoints de la API](#endpoints-de-la-api)
+- [Ejemplo de Solicitudes](#ejemplo-de-solicitudes)
+- [Contribuciones](#contribuciones)
+- [Licencia](#licencia)
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Características
 
-## Project setup
+- Registro de usuarios
+- Inicio de sesión
+- Autenticación de usuarios mediante JWT
+- Manejo de sesiones mediante cookies
+- CRUD completo para usuarios
+- Documentación de la API con Swagger
+- Emisión de mensajes por Socket.IO
+- Logging
 
-```bash
-$ npm install
-```
 
-## Compile and run the project
+## Tecnologías Utilizadas
 
-```bash
-# development
-$ npm run start
+- **[NestJS](https://nestjs.com/)**: Un framework progresivo para construir aplicaciones del lado del servidor eficientes y escalables en Node.js. Utiliza TypeScript y ofrece una arquitectura modular que facilita la organización y el mantenimiento del código.
+  
+- **[MongoDB](https://www.mongodb.com/)**: Una base de datos NoSQL orientada a documentos que permite almacenar datos en un formato flexible, similar a JSON. Ideal para aplicaciones modernas que requieren escalabilidad y alto rendimiento.
+  
+- **[Mongoose](https://mongoosejs.com/)**: Una biblioteca de modelado de objetos MongoDB para Node.js. Proporciona una solución basada en esquemas para modelar los datos de la aplicación, incluyendo validación, casting y lógica empresarial.
 
-# watch mode
-$ npm run start:dev
+- **[Passport.js](http://www.passportjs.org/)**: Un middleware de autenticación para Node.js que proporciona una forma simple y extensible de implementar autenticación en aplicaciones web.
 
-# production mode
-$ npm run start:prod
-```
+- **[JWT (JSON Web Tokens)](https://jwt.io/)**: Un estándar abierto (RFC 7519) que define un método compacto y autónomo para transmitir información segura entre partes como un objeto JSON. Se utiliza comúnmente para la autenticación.
 
-## Run tests
+- **[Express](https://expressjs.com/)**: Un framework web minimalista para Node.js que proporciona un conjunto robusto de características para desarrollar aplicaciones web y móviles.
 
-```bash
-# unit tests
-$ npm run test
+- **[Swagger](https://swagger.io/)**: Una herramienta que permite documentar APIs RESTful. Facilita la interacción con la API a través de una interfaz gráfica donde los desarrolladores pueden probar los endpoints.
 
-# e2e tests
-$ npm run test:e2e
+- **[bcrypt](https://www.npmjs.com/package/bcrypt)**: Una biblioteca para encriptar contraseñas utilizando el algoritmo bcrypt, proporcionando una forma segura de almacenar contraseñas.
 
-# test coverage
-$ npm run test:cov
-```
+- **[class-validator](https://github.com/typestack/class-validator)**: Un paquete que permite validar objetos utilizando decoradores, facilitando la validación de datos en aplicaciones NestJS.
 
-## Deployment
+- **[class-transformer](https://github.com/typestack/class-transformer)**: Permite transformar objetos simples en instancias de clases y viceversa, lo cual es útil al trabajar con DTOs en NestJS.
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+- **[cookie-parser](https://www.npmjs.com/package/cookie-parser)**: Middleware para analizar cookies en las solicitudes HTTP, permitiendo el manejo fácil de cookies en Express.
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+- **[socket.io](https://socket.io/)**: Una biblioteca que permite la comunicación bidireccional en tiempo real entre clientes y servidores.
 
-```bash
-$ npm install -g mau
-$ mau deploy
-```
+- **[winston](https://github.com/winstonjs/winston)**: Un logger versátil para Node.js que permite registrar información en diferentes niveles y formatos, ideal para el monitoreo y la depuración.
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+- **[swagger-ui-express](https://www.npmjs.com/package/swagger-ui-express)**: Middleware para servir la interfaz de usuario Swagger a través de Express, facilitando la visualización y prueba de tu API.
 
-## Resources
+### Dependencias
 
-Check out a few resources that may come in handy when working with NestJS:
+A continuación se muestra un resumen de las dependencias clave utilizadas en este proyecto:
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+```json
+"dependencies": {
+    "@nestjs/common": "^10.0.0",
+    "@nestjs/core": "^10.0.0",
+    "@nestjs/jwt": "^10.2.0",
+    "@nestjs/mongoose": "^10.1.0",
+    "@nestjs/passport": "^10.0.3",
+    "@nestjs/platform-express": "^10.0.0",
+    "mongoose": "^8.8.3",
+    "passport": "^0.7.0",
+    "jsonwebtoken": "^9.0.2",
+    "bcrypt": "^5.1.1",
+    "class-validator": "^0.14.1",
+    "class-transformer": "^0.5.1",
+    "cookie-parser": "^1.4.7",
+    "swagger-ui-express": "^5.0.1",
+    "winston": "^3.17.0"
+}
 
-## Support
+## Instalación
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+1. Clona el repositorio:
 
-## Stay in touch
+   ```bash
+   git clone https://github.com/carlapvalera/user-api.git
+   cd user-api
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+2. Construir la Imagen Docker
 
-## License
+  ```bash
+  docker build -t my-nestjs-api .
+  docker run -d --name my-nestjs-container -p 3000:3000 my-nestjs-api
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+
+## Uso
+
+  - La API estará disponible en http://localhost:3000.
+  - Accede a la documentación Swagger en http://localhost:3000/api-docs.
+
+## Endpoints de la API
+
+### Usuarios
+  - Registrar un Usuario
+      Método: POST
+      URL: /users/register
+      Body:
+      json
+      {
+        "username": "testuser",
+        "email": "testuser@example.com",
+        "password": "password123"
+      }
+
+  - Iniciar Sesión
+      Método: POST
+      URL: /auth/login
+      Body:
+      json
+      {
+        "email": "testuser@example.com",
+        "password": "password123"
+      }
+
+  - Obtener Todos los Usuarios
+      Método: GET
+      URL: /users
+      Autenticación: Requiere JWT en cookies.
+  - Obtener un Usuario por ID
+      Método: GET
+      URL: /users/:id
+
+  - Autenticación: Requiere JWT en cookies.
+
+  - Actualizar un Usuario
+      Método: PUT
+      URL: /users/:id
+      Body:
+      json
+      {
+        "username": "updateduser"
+      }
+
+  - Eliminar un Usuario
+      Método: DELETE
+      URL: /users/:id
+

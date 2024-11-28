@@ -1,24 +1,21 @@
 import { Module } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { AuthController } from './auth.controller';
-import { UsersModule } from '../users/users.module'; // Asegúrate de que la ruta sea correcta
 import { JwtModule } from '@nestjs/jwt';
-import { PassportModule } from '@nestjs/passport';
+import { UsersModule } from '../users/users.module'; 
 import { JwtStrategy } from './jwt.strategy';
+import { AuthController } from './auth.controller';
+import * as dotenv from 'dotenv';
 
+dotenv.config();
 @Module({
   imports: [
     UsersModule,
-    PassportModule,
     JwtModule.register({
-      secret: 'claveSecreta', // Cambia esto por una clave más segura
-      signOptions: { expiresIn: '1h' }, // El token expirará en 1 hora
+      secret: process.env.JWT_SECRET || 'default_secret_key', // Usa la clave secreta desde las variables de entorno
+      signOptions: { expiresIn: process.env.JWT_EXPIRATION || '60s' }, // Tiempo de expiración del token
     }),
   ],
-  providers: [AuthService,JwtStrategy],
+  providers: [AuthService, JwtStrategy],
   controllers: [AuthController],
 })
 export class AuthModule {}
-
-
-

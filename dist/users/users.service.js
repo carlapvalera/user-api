@@ -17,31 +17,66 @@ const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
 const user_schema_1 = require("./user.schema");
+const bcrypt = require("bcrypt");
+const users_gateway_1 = require("./users.gateway");
+const logger_service_1 = require("./core/logger.service");
 let UsersService = class UsersService {
-    constructor(userModel) {
+    constructor(userModel, logger, usersGateway) {
         this.userModel = userModel;
+        this.logger = logger;
+        this.usersGateway = usersGateway;
     }
-    async create(user) {
-        const newUser = new this.userModel(user);
+    async create(createUserDto) {
+        const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
+        const newUser = new this.userModel({ ...createUserDto, password: hashedPassword });
+        this.usersGateway.handleUserAction({ userId: newUser.username, action: 'registró' });
+        this.logger.log(`El usuario ${newUser.username} ha sido registrado.`);
         return newUser.save();
     }
     async findAll() {
         return this.userModel.find().exec();
     }
     async findOne(id) {
-        return this.userModel.findById(id).exec();
+        const user = await this.userModel.findById(id).exec();
+        if (!user) {
+            throw new common_1.NotFoundException(`User with ID ${id} not found`);
+        }
+        return user;
     }
-    async update(id, user) {
-        return this.userModel.findByIdAndUpdate(id, user, { new: true }).exec();
+    async update(id, updateUserDto) {
+        const user = await this.userModel.findByIdAndUpdate(id, updateUserDto, { new: true }).exec();
+        if (!user) {
+            throw new common_1.NotFoundException(`User with ID ${id} not found`);
+        }
+        this.usersGateway.handleUserAction({ userId: user.username, action: 'actualizó' });
+        this.logger.log(`El usuario ${user.username} ha sido actualizado.`);
+        return user;
     }
     async remove(id) {
-        return this.userModel.findByIdAndDelete(id).exec();
+        const user = await this.userModel.findByIdAndDelete(id).exec();
+        if (!user) {
+            throw new common_1.NotFoundException(`User with ID ${id} not found`);
+        }
+        this.usersGateway.handleUserAction({ userId: user.username, action: 'eliminó' });
+        this.logger.log(`El usuario ${user.username} ha sido eliminado.`);
+        return user;
+    }
+    async findOneByEmail(email) {
+        return this.userModel.findOne({ email }).exec();
+    }
+    async validateUser(email, password) {
+        const user = await this.userModel.findOne({ email }).lean().exec();
+        if (user && await bcrypt.compare(password, user.password)) {
+            const { password, ...result } = user;
+            return result;
+        }
+        return null;
     }
 };
 exports.UsersService = UsersService;
 exports.UsersService = UsersService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, mongoose_1.InjectModel)(user_schema_1.User.name)),
-    __metadata("design:paramtypes", [mongoose_2.Model])
+    __metadata("design:paramtypes", [mongoose_2.Model, logger_service_1.CustomLoggerService, users_gateway_1.UsersGateway])
 ], UsersService);
 //# sourceMappingURL=users.service.js.map
