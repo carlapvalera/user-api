@@ -1,5 +1,3 @@
-// src/users/user.schema.ts
-
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
@@ -18,5 +16,4 @@ export class User {
   password: string; // Contraseña del usuario
 }
 
-// Crea el esquema Mongoose a partir de la clase User
 export const UserSchema = SchemaFactory.createForClass(User);

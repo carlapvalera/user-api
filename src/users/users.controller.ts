@@ -1,5 +1,3 @@
-// src/users/users.controller.ts
-
 import { Controller, Post, Body, Get, Param, Put, Delete, NotFoundException , UseGuards } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -9,8 +7,7 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 
-@ApiTags('users') // Etiqueta para agrupar los endpoints relacionados con usuarios
-
+@ApiTags('users') 
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}

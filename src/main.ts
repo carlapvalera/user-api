@@ -1,20 +1,20 @@
-// src/main.ts
-
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { WinstonModule } from 'nest-winston';
-import { loggerConfig } from './users/core/logger.config'; // Importa la configuración del logger
+import { loggerConfig } from './users/core/logger.config'; 
 import { IoAdapter } from '@nestjs/platform-socket.io';
 import * as cookieParser from 'cookie-parser';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
-    logger: WinstonModule.createLogger(loggerConfig), // Usa la configuración del logger aquí
+    logger: WinstonModule.createLogger(loggerConfig), 
   });
 
-  app.use(cookieParser()); // Agrega este middleware para manejar cookies
+  // Agrega este middleware para manejar cookies
+  app.use(cookieParser()); 
+
   // Configura el ValidationPipe globalmente
   app.useGlobalPipes(new ValidationPipe({
     transform: true,
@@ -32,7 +32,7 @@ async function bootstrap() {
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api-docs', app, document); // Asegúrate de que esta línea esté presente
+  SwaggerModule.setup('api-docs', app, document); 
 
   // Configurar Socket.IO
   app.useWebSocketAdapter(new IoAdapter(app));

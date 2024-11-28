@@ -1,5 +1,3 @@
-// src/users/users.gateway.ts
-
 import {
     WebSocketGateway,
     WebSocketServer,

@@ -1,5 +1,3 @@
-// src/auth/auth.service.ts
-
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from '../users/users.service';
@@ -11,9 +9,9 @@ export class AuthService {
    async validateUser(email: string, password: string): Promise<any> {
        const user = await this.usersService.validateUser(email, password);
        if (user) {
-           return user; // Retorna el usuario si es válido
+           return user; 
        }
-       return null; // Retorna null si no es válido
+       return null; 
    }
 
    async login(user: any) {

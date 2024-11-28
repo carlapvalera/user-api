@@ -1,13 +1,11 @@
-// src/users/users.service.ts
-
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User, UserDocument } from './user.schema';
 import * as bcrypt from 'bcrypt';
 import { CreateUserDto } from './dto/create-user.dto';
-import { UsersGateway } from './users.gateway'; // Importar el gateway
-import { CustomLoggerService } from './core/logger.service'; // Asegúrate de importar tu logger personalizado
+import { UsersGateway } from './users.gateway'; 
+import { CustomLoggerService } from './core/logger.service'; 
 
 @Injectable()
 export class UsersService {
@@ -58,11 +56,11 @@ export class UsersService {
   }
 
   async validateUser(email: string, password: string): Promise<any> {
-    const user = await this.userModel.findOne({ email }).lean().exec(); // Usa lean() aquí
+    const user = await this.userModel.findOne({ email }).lean().exec(); 
     if (user && await bcrypt.compare(password, user.password)) {
-      const { password, ...result } = user; // No necesitas toObject() si usas lean()
+      const { password, ...result } = user; 
       return result;
     }
-    return null; // Devuelve null si las credenciales son incorrectas
+    return null; 
   }
 }

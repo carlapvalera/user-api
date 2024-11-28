@@ -1,5 +1,3 @@
-// src/auth/auth.controller.ts
-
 import { Controller, Post, Body, Res } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { Response } from 'express';
