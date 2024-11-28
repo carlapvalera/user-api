@@ -1,11 +1,9 @@
-// src/main.ts
-
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { WinstonModule } from 'nest-winston';
-import { loggerConfig } from './users/core/logger.config'; // Importa la configuración del logger
+import { loggerConfig } from './users/core/logger.config'; 
 import { IoAdapter } from '@nestjs/platform-socket.io';
 import * as cookieParser from 'cookie-parser';
 
@@ -15,6 +13,7 @@ async function bootstrap() {
   });
 
   app.use(cookieParser()); // Agrega este middleware para manejar cookies
+
   // Configura el ValidationPipe globalmente
   app.useGlobalPipes(new ValidationPipe({
     transform: true,
